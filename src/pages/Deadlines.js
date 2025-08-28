@@ -112,6 +112,10 @@ const Deadlines = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showAddModal, setShowAddModal] = useState(false);
   
+  const handleAddDeadline = () => {
+    setShowAddModal(true);
+  };
+  
   const deadlines = [
     {
       id: 1,
@@ -194,7 +198,7 @@ const Deadlines = () => {
               Track important case deadlines and appointments ({deadlines.length} total deadlines)
             </p>
           </div>
-          <button onClick={() => setShowAddModal(true)} style={{
+          <button onClick={handleAddDeadline} style={{
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
@@ -260,6 +264,65 @@ const Deadlines = () => {
         }}>
           <Clock size={48} style={{ marginBottom: '16px', opacity: 0.5 }} />
           <p>No deadlines found matching your criteria.</p>
+        </div>
+      )}
+
+      {/* Add Deadline Modal */}
+      {showAddModal && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 1000
+        }}>
+          <div style={{
+            backgroundColor: 'white',
+            padding: '24px',
+            borderRadius: '8px',
+            width: '400px',
+            maxWidth: '90vw'
+          }}>
+            <h3 style={{ margin: '0 0 16px 0' }}>Add New Deadline</h3>
+            <p style={{ color: '#64748b', margin: '0 0 24px 0' }}>
+              Deadline creation functionality coming soon!
+            </p>
+            <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
+              <button 
+                onClick={() => setShowAddModal(false)}
+                style={{
+                  padding: '8px 16px',
+                  border: '1px solid #d1d5db',
+                  backgroundColor: 'white',
+                  borderRadius: '6px',
+                  cursor: 'pointer'
+                }}
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={() => {
+                  setShowAddModal(false);
+                  alert('Deadline creation feature coming soon!');
+                }}
+                style={{
+                  padding: '8px 16px',
+                  backgroundColor: '#3b82f6',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '6px',
+                  cursor: 'pointer'
+                }}
+              >
+                Add
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

@@ -106,6 +106,11 @@ const Dashboard = () => {
     setShowNotifications(!showNotifications);
   };
 
+  const clearNotifications = () => {
+    setNotifications([]);
+    setShowNotifications(false);
+  };
+
   const handleSettings = () => {
     setShowSettings(!showSettings);
   };
@@ -154,15 +159,29 @@ const Dashboard = () => {
           {/* Notifications Dropdown */}
           {showNotifications && (
             <div className="position-absolute top-100 end-0 mt-2 bg-white border rounded shadow-lg" style={{width: '300px', zIndex: 1000}}>
-              <div className="p-3 border-bottom">
+              <div className="p-3 border-bottom d-flex justify-content-between align-items-center">
                 <h6 className="mb-0">Notifications</h6>
+                {notifications.length > 0 && (
+                  <button 
+                    onClick={clearNotifications}
+                    className="btn btn-sm btn-outline-secondary"
+                  >
+                    Clear All
+                  </button>
+                )}
               </div>
               <div className="p-2">
-                {notifications.map((notification, index) => (
-                  <div key={index} className="p-2 border-bottom">
-                    <small>{notification}</small>
+                {notifications.length > 0 ? (
+                  notifications.map((notification, index) => (
+                    <div key={index} className="p-2 border-bottom">
+                      <small>{notification}</small>
+                    </div>
+                  ))
+                ) : (
+                  <div className="p-2 text-center text-muted">
+                    <small>No notifications</small>
                   </div>
-                ))}
+                )}
               </div>
             </div>
           )}

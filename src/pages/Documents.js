@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Plus, Filter, Download, Eye, MoreHorizontal, FileText, Upload } from 'lucide-react';
+import { Search, Plus, Download, Eye, MoreHorizontal, FileText, Upload } from 'lucide-react';
 
 const DocumentCard = ({ document }) => (
   <div style={{
@@ -171,11 +171,15 @@ const Documents = () => {
     }
   ];
 
-  const filteredDocuments = documents.filter(doc =>
-    doc.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    doc.client.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    doc.caseType.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredDocuments = documents.filter(doc => {
+    const matchesSearch = doc.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      doc.client.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      doc.caseType.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    const matchesFilter = selectedFilter === 'All' || doc.caseType === selectedFilter;
+    
+    return matchesSearch && matchesFilter;
+  });
 
   return (
     <div style={{ padding: '24px' }}>
@@ -254,21 +258,27 @@ const Documents = () => {
               }}
             />
           </div>
-          <button style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-            padding: '12px 16px',
-            backgroundColor: 'white',
-            border: '1px solid #e2e8f0',
-            borderRadius: '6px',
-            cursor: 'pointer',
-            fontSize: '14px',
-            color: '#64748b'
-          }}>
-            <Filter size={16} />
-            Filter
-          </button>
+          <select 
+            value={selectedFilter}
+            onChange={(e) => setSelectedFilter(e.target.value)}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '12px 16px',
+              backgroundColor: 'white',
+              border: '1px solid #e2e8f0',
+              borderRadius: '6px',
+              cursor: 'pointer',
+              fontSize: '14px',
+              color: '#64748b'
+            }}
+          >
+            <option value="All">All Types</option>
+            <option value="Immigration">Immigration</option>
+            <option value="Family Law">Family Law</option>
+            <option value="Business">Business</option>
+          </select>
         </div>
       </div>
 
@@ -291,6 +301,65 @@ const Documents = () => {
         }}>
           <FileText size={48} style={{ marginBottom: '16px', opacity: 0.5 }} />
           <p>No documents found matching your search criteria.</p>
+        </div>
+      )}
+
+      {/* Upload Document Modal */}
+      {showUploadModal && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 1000
+        }}>
+          <div style={{
+            backgroundColor: 'white',
+            padding: '24px',
+            borderRadius: '8px',
+            width: '400px',
+            maxWidth: '90vw'
+          }}>
+            <h3 style={{ margin: '0 0 16px 0' }}>Upload Document</h3>
+            <p style={{ color: '#64748b', margin: '0 0 24px 0' }}>
+              Document upload functionality coming soon!
+            </p>
+            <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
+              <button 
+                onClick={() => setShowUploadModal(false)}
+                style={{
+                  padding: '8px 16px',
+                  border: '1px solid #d1d5db',
+                  backgroundColor: 'white',
+                  borderRadius: '6px',
+                  cursor: 'pointer'
+                }}
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={() => {
+                  setShowUploadModal(false);
+                  alert('Document upload feature coming soon!');
+                }}
+                style={{
+                  padding: '8px 16px',
+                  backgroundColor: '#3b82f6',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '6px',
+                  cursor: 'pointer'
+                }}
+              >
+                Upload
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

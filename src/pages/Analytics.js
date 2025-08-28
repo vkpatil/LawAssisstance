@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BarChart3, TrendingUp, Users, DollarSign, Calendar, Award } from 'lucide-react';
 
 const MetricCard = ({ title, value, change, icon: Icon, color }) => (

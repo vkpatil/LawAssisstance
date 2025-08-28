@@ -218,7 +218,14 @@ const SignIn = () => {
                         {!isSignUp && (
                           <p className="small text-muted">
                             Forgot password? 
-                            <a href="#" className="text-primary text-decoration-none ms-1">Reset here</a>
+                            <button 
+                              type="button"
+                              onClick={() => alert('Password reset functionality coming soon!')}
+                              className="btn btn-link text-primary text-decoration-none p-0 ms-1"
+                              style={{ fontSize: 'inherit' }}
+                            >
+                              Reset here
+                            </button>
                           </p>
                         )}
                       </div>
@@ -351,7 +358,14 @@ const SignIn = () => {
                         {!isSignUp && (
                           <p className="small text-muted">
                             Forgot password? 
-                            <a href="#" className="text-success text-decoration-none ms-1">Reset here</a>
+                            <button 
+                              type="button"
+                              onClick={() => alert('Password reset functionality coming soon!')}
+                              className="btn btn-link text-success text-decoration-none p-0 ms-1"
+                              style={{ fontSize: 'inherit' }}
+                            >
+                              Reset here
+                            </button>
                           </p>
                         )}
                       </div>

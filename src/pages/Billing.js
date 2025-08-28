@@ -91,6 +91,10 @@ const Billing = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showCreateModal, setShowCreateModal] = useState(false);
   
+  const handleCreateInvoice = () => {
+    setShowCreateModal(true);
+  };
+  
   const invoices = [
     {
       id: 1,
@@ -147,7 +151,7 @@ const Billing = () => {
               Manage invoices and track payments ({invoices.length} total invoices)
             </p>
           </div>
-          <button onClick={() => setShowCreateModal(true)} style={{
+          <button onClick={handleCreateInvoice} style={{
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
@@ -211,6 +215,65 @@ const Billing = () => {
         }}>
           <FileText size={48} style={{ marginBottom: '16px', opacity: 0.5 }} />
           <p>No invoices found matching your search criteria.</p>
+        </div>
+      )}
+
+      {/* Create Invoice Modal */}
+      {showCreateModal && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 1000
+        }}>
+          <div style={{
+            backgroundColor: 'white',
+            padding: '24px',
+            borderRadius: '8px',
+            width: '400px',
+            maxWidth: '90vw'
+          }}>
+            <h3 style={{ margin: '0 0 16px 0' }}>Create New Invoice</h3>
+            <p style={{ color: '#64748b', margin: '0 0 24px 0' }}>
+              Invoice creation functionality coming soon!
+            </p>
+            <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
+              <button 
+                onClick={() => setShowCreateModal(false)}
+                style={{
+                  padding: '8px 16px',
+                  border: '1px solid #d1d5db',
+                  backgroundColor: 'white',
+                  borderRadius: '6px',
+                  cursor: 'pointer'
+                }}
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={() => {
+                  setShowCreateModal(false);
+                  alert('Invoice creation feature coming soon!');
+                }}
+                style={{
+                  padding: '8px 16px',
+                  backgroundColor: '#3b82f6',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '6px',
+                  cursor: 'pointer'
+                }}
+              >
+                Create
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>
